@@ -148,15 +148,16 @@ class modSecurityLoginProcessor extends modProcessor {
             $profile->set('blockeduntil', 0);
             $profile->save();
         }
-        if ($profile->get('blocked')) {
-            return $this->modx->lexicon('login_blocked_admin');
-        }
         if ($profile->get('blockeduntil') > time()) {
             return $this->modx->lexicon('login_blocked_error');
         }
         if ($profile->get('blockedafter') > 0 && $profile->get('blockedafter') < time()) {
             return $this->modx->lexicon('login_blocked_error');
         }
+        if ($profile->get('blocked')) {
+            return $this->modx->lexicon('login_blocked_admin');
+        }
+
 
         return false;
     }
